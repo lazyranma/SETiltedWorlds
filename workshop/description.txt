@@ -1,4 +1,5 @@
 [i]This plugin tilts you by 23.44 degrees.[/i]
+[url=https://github.com/lazyranma/SETiltedWorlds]GitHub[/url] | [url=https://discord.com/channels/1278330334982967468/1571549680024944640]Discord[/url]
 
 Gives planets, dwarf planets and moons their real axial tilt, gives moons their real orbital inclination, and puts their parking orbits into each body's new equatorial plane.
 [h2]Notes[/h2]
