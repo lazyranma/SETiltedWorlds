@@ -27,3 +27,18 @@ change the deployment path in `TiltedWorlds.csproj` to `BepInEx\plugins\` if
 you don't use ScriptEngine.
 
 For a CPU-only build, pass `-p:EnableGpuMagnetospheres=false` to `dotnet build`.
+
+## Workshop publishing
+
+Publishing settings are in `workshop/manifest.json`. Run the shared ModUploader
+from this project's directory with Steam already signed in:
+
+```powershell
+python ../ModUploader/upload.py workshop/manifest.json --dry-run
+python ../ModUploader/upload.py workshop/manifest.json
+python ../ModUploader/upload.py workshop/manifest.json --meta
+```
+
+Full publishing uploads the release DLL, description, preview, tags and newest
+changelog section (when present). `--meta` omits content and change notes.
+See `../ModUploader/README.md` for requirements, manifest fields and test options.

@@ -1,0 +1,11 @@
+{
+  "appid": 1369700,
+  "publishedfileid": 3840282977,
+  "description_file": "description.txt",
+  "previewfile": "logo.jpeg",
+  "tags": ["BepInEx", "VFX"],
+  "content_files": [
+    {"source": "../bin/Release/TiltedWorlds.dll", "target": "TiltedWorlds.dll"}
+  ],
+  "changelog": {"path": "../CHANGELOG.md", "optional": true}
+}
