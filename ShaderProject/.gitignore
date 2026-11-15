@@ -1,0 +1,14 @@
+/Library/
+/Temp/
+/Logs/
+/obj/
+/UserSettings/
+/MemoryCaptures/
+/Build/
+/Builds/
+/*.csproj
+/*.sln
+/*.unityproj
+/*.pidb
+/*.pdb
+/*.mdb

@@ -1,0 +1,20 @@
+# .NET build output
+/bin/
+/obj/
+
+# Generated Unity shader bundle and build logs
+/ShaderBundle/
+/ShaderBundle-build.log
+
+# Local IDE and OS files
+.vs/
+.vscode/
+.idea/
+.zed/
+*.user
+*.suo
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db

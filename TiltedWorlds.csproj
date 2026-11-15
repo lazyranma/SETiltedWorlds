@@ -1,0 +1,95 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>TiltedWorlds</AssemblyName>
+    <RootNamespace>TiltedWorlds</RootNamespace>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <PluginVersion>1.0.0</PluginVersion>
+    <EnableGpuMagnetospheres Condition="'$(EnableGpuMagnetospheres)' == ''">true</EnableGpuMagnetospheres>
+    <AssemblyVersion>$(PluginVersion)</AssemblyVersion>
+    <FileVersion>$(PluginVersion)</FileVersion>
+    <InformationalVersion>$(PluginVersion)</InformationalVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GameDir Condition="'$(GameDir)' == ''">$(SOLAR_EXPANSE_DIR)</GameDir>
+    <AssemblyCSharpPath Condition="'$(AssemblyCSharpPath)' == ''">$(GameDir)\Solar Expanse_Data\Managed\Assembly-CSharp.dll</AssemblyCSharpPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="GpuMagnetosphere.cs" Condition="'$(EnableGpuMagnetospheres)' != 'true'" />
+    <Compile Remove="ShaderProject\**\*.cs" />
+    <EmbeddedResource Include="ShaderBundle\magnetosphere.bundle" Condition="'$(EnableGpuMagnetospheres)' == 'true' and Exists('ShaderBundle\magnetosphere.bundle')">
+      <LogicalName>TiltedWorlds.magnetosphere.bundle</LogicalName>
+    </EmbeddedResource>
+    <Reference Include="BepInEx">
+      <HintPath>$(GameDir)\BepInEx\core\BepInEx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(GameDir)\BepInEx\core\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(AssemblyCSharpPath)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sirenix.Serialization">
+      <HintPath>$(GameDir)\Solar Expanse_Data\Managed\Sirenix.Serialization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(GameDir)\Solar Expanse_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GameDir)\Solar Expanse_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule" Condition="'$(EnableGpuMagnetospheres)' == 'true'">
+      <HintPath>$(GameDir)\Solar Expanse_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(EnableGpuMagnetospheres)' == 'true'">
+    <DefineConstants>$(DefineConstants);TILTEDWORLDS_GPU</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Generate VersionConstants.cs from the single $(PluginVersion) property.
+       %3B escapes semicolons because MSBuild uses ; as an item separator. -->
+  <Target Name="GenerateVersionFile" BeforeTargets="BeforeBuild">
+    <WriteLinesToFile
+        File="$(IntermediateOutputPath)VersionConstants.cs"
+        Lines="internal static class VersionConstants { internal const string PluginVersion = &quot;$(PluginVersion)&quot;%3B }"
+        Overwrite="true" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)VersionConstants.cs" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Release archive: paths are relative to the game root, so Vortex installs it as is and
+       a manual extraction over the game folder produces BepInEx\plugins\TiltedWorlds\. -->
+  <Target Name="PackRelease" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <PropertyGroup>
+      <_StageRoot>$(IntermediateOutputPath)zipstage\</_StageRoot>
+    </PropertyGroup>
+
+    <RemoveDir Directories="$(_StageRoot)" />
+    <MakeDir Directories="$(_StageRoot)BepInEx\plugins\TiltedWorlds\" />
+    <Copy SourceFiles="$(OutputPath)TiltedWorlds.dll" DestinationFolder="$(_StageRoot)BepInEx\plugins\TiltedWorlds\" />
+    <ZipDirectory SourceDirectory="$(_StageRoot)" DestinationFile="$(OutputPath)TiltedWorlds_v$(PluginVersion).zip" Overwrite="true" />
+    <RemoveDir Directories="$(_StageRoot)" />
+
+    <MakeDir Directories="$(GameDir)\BepInEx\scripts\" />
+    <!-- ScriptEngine reads the assembly with ReadSymbols = true, so the .pdb has to sit
+         next to the .dll or loading fails. -->
+    <Copy SourceFiles="$(OutputPath)TiltedWorlds.pdb;$(OutputPath)TiltedWorlds.dll" DestinationFolder="$(GameDir)\BepInEx\scripts\" Retries="0" ContinueOnError="true" />
+  </Target>
+
+</Project>
