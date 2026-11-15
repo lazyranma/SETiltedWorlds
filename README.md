@@ -41,6 +41,20 @@ instead of dynamically deforming it. Restart the game after changing settings.
 
 ## Installation
 
+The game branch decides the install path. BepInEx is required either way.
+
+### Manual — stable game branch
+
 1. **Install BepInEx** — follow the [BepInEx setup guide](https://docs.bepinex.dev/articles/user_guide/installation/index.html).
 2. **Extract plugin** — unzip the archive into the game folder, so the DLL ends up in
    `BepInEx\plugins\TiltedWorlds\`.
+
+### Steam Workshop — experimental game branch
+
+Workshop mod support only exists in the experimental branch; on stable, use the manual path above.
+
+1. **Install BepInEx** — as above.
+2. **Subscribe** to [Tilted Worlds](https://steamcommunity.com/sharedfiles/filedetails/?id=3840282977)
+   on the Workshop.
+3. **Start twice** — subscribed items are only copied into `BepInEx\plugins` when the game exits,
+   so launch, quit, and launch again.
