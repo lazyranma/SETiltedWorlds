@@ -44,5 +44,3 @@ instead of dynamically deforming it. Restart the game after changing settings.
 1. **Install BepInEx** — follow the [BepInEx setup guide](https://docs.bepinex.dev/articles/user_guide/installation/index.html).
 2. **Extract plugin** — unzip the archive into the game folder, so the DLL ends up in
    `BepInEx\plugins\TiltedWorlds\`.
-
-> **Note:** loading through ScriptEngine (`BepInEx\scripts\`) is supported as well.

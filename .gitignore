@@ -6,6 +6,12 @@
 /ShaderBundle/
 /ShaderBundle-build.log
 
+# Workshop publish
+workshop/_publish*.vdf
+workshop/content/
+__pycache__/
+*.pyc
+
 # Local IDE and OS files
 .vs/
 .vscode/

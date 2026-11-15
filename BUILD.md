@@ -22,7 +22,8 @@ dotnet build TiltedWorlds.csproj -c Release
 
 The first command creates `ShaderBundle\magnetosphere.bundle` for Windows x64
 (Direct3D 11). The plugin build embeds this bundle and deploys
-the DLL and PDB to `BepInEx\scripts\`. Rebuild the shader before the plugin when the
-shader source changes; C# changes only require rebuilding the plugin.
+the DLL and PDB to `BepInEx\scripts\` to be loaded by ScriptEngine. You may want to
+change the deployment path in `TiltedWorlds.csproj` to `BepInEx\plugins\` if
+you don't use ScriptEngine.
 
 For a CPU-only build, pass `-p:EnableGpuMagnetospheres=false` to `dotnet build`.
