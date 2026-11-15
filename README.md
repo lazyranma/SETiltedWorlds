@@ -46,7 +46,8 @@ The game branch decides the install path. BepInEx is required either way.
 ### Manual — stable game branch
 
 1. **Install BepInEx** — follow the [BepInEx setup guide](https://docs.bepinex.dev/articles/user_guide/installation/index.html).
-2. **Extract plugin** — unzip the archive into the game folder, so the DLL ends up in
+2. **Download** — [TiltedWorlds_v1.0.0.zip](https://github.com/lazyranma/SETiltedWorlds/releases/download/v1.0.0/TiltedWorlds_v1.0.0.zip).
+3. **Extract plugin** — unzip the archive into the game folder, so the DLL ends up in
    `BepInEx\plugins\TiltedWorlds\`.
 
 ### Steam Workshop — experimental game branch
