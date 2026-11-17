@@ -57,5 +57,7 @@ Workshop mod support only exists in the experimental branch; on stable, use the 
 1. **Install BepInEx** — as above.
 2. **Subscribe** to [Tilted Worlds](https://steamcommunity.com/sharedfiles/filedetails/?id=3840282977)
    on the Workshop.
-3. **Start twice** — subscribed items are only copied into `BepInEx\plugins` when the game exits,
+3. **Remove any existing install** — if the plugin is already in `BepInEx\plugins\TiltedWorlds`,
+   quit the game and delete that folder first; the game cannot update an installed mod.
+4. **Start twice** — subscribed items are only copied into `BepInEx\plugins` when the game exits,
    so launch, quit, and launch again.
